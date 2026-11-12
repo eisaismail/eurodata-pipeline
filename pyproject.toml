@@ -19,10 +19,12 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+anomaly = ["scikit-learn>=1.5,<2", "matplotlib>=3.9,<4", "numpy>=1.26,<3"]
 dev = ["pytest>=8.0,<9.0", "httpx>=0.27,<1.0", "ruff>=0.6,<1.0"]
 
 [project.scripts]
 eurodata = "eurodata_pipeline.cli:main"
+eurodata-anomalies = "eurodata_pipeline.anomalies:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

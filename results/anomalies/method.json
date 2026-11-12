@@ -1,0 +1,53 @@
+{
+  "source": "European Central Bank EXR daily reference rates",
+  "source_csv_sha256": "b8ecfbd7e522edafb7aec988b373bd172e9dac7a18b3f10b0ab27eaf46037398",
+  "training": "Through 2022-12-31",
+  "calibration": "2023 calendar year",
+  "test": "2024-01-01 onwards",
+  "threshold": "2023 98th percentile, strict exceedance",
+  "features": [
+    "daily_change_pct",
+    "signed_z",
+    "volatility_ratio"
+  ],
+  "random_state": 42,
+  "n_estimators": 300,
+  "max_samples": 256,
+  "labelled_anomalies": false,
+  "currencies": {
+    "CHF": {
+      "training_rows": 711,
+      "calibration_rows": 255,
+      "test_rows": 732,
+      "training_last_date": "2022-12-30",
+      "test_last_date": "2026-11-11"
+    },
+    "GBP": {
+      "training_rows": 711,
+      "calibration_rows": 255,
+      "test_rows": 732,
+      "training_last_date": "2022-12-30",
+      "test_last_date": "2026-11-11"
+    },
+    "JPY": {
+      "training_rows": 711,
+      "calibration_rows": 255,
+      "test_rows": 732,
+      "training_last_date": "2022-12-30",
+      "test_last_date": "2026-11-11"
+    },
+    "USD": {
+      "training_rows": 711,
+      "calibration_rows": 255,
+      "test_rows": 732,
+      "training_last_date": "2022-12-30",
+      "test_last_date": "2026-11-11"
+    }
+  },
+  "package_versions": {
+    "pandas": "2.3.3",
+    "numpy": "2.5.4",
+    "scikit-learn": "1.9.1",
+    "matplotlib": "3.11.2"
+  }
+}

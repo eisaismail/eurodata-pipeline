@@ -1,0 +1,9 @@
+{
+  "source": "European Central Bank, EXR daily reference rates",
+  "url": "https://data-api.ecb.europa.eu/service/data/EXR/D.USD+GBP+JPY+CHF.EUR.SP00.A?startPeriod=2020-01-01&endPeriod=2026-11-11&format=csvdata",
+  "retrieved_at_utc": "2026-11-12T01:51:41.558212+00:00",
+  "sha256_clean_csv": "b8ecfbd7e522edafb7aec988b373bd172e9dac7a18b3f10b0ab27eaf46037398",
+  "rows": 7036,
+  "first_observation": "2020-01-02",
+  "last_observation": "2026-11-11"
+}
