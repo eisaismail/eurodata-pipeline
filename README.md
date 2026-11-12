@@ -1,20 +1,20 @@
 # EuroData Pipeline
 
-This project downloads real exchange rates from the European Central Bank, stores them in a database and makes them available through an API. It also plots daily changes and flags days that look unusual.
+This project downloads exchange rates from the European Central Bank, stores them in a database and makes them available through an API. It also plots daily changes and flags days that look unusual.
 
 If the euro usually moves a little against the dollar but suddenly moves much more, the chart can mark that day for a closer look. A flag does not mean the rate is wrong.
 
-## The ML part
+## Anomaly detection
 
 Isolation Forest learns patterns in past exchange rate changes. It uses the daily percentage change, that change compared with the previous 60 observations, and recent volatility compared with the previous 60 observations. A simpler statistical rule provides a comparison.
 
 Each currency has its own model. Training uses observations through 2022. Rates from 2023 set both thresholds at the 98th percentile. Those thresholds stay fixed when checking dates from 2024 onwards. The current published rate is needed before a day can be scored, so this detects unusual movements after publication rather than predicting tomorrow.
 
-## Real data and results
+## Data and results
 
-The snapshot contains 7,036 actual ECB observations from 2 January 2020 to 11 November 2026 for USD, GBP, JPY and CHF. Rates are foreign currency units per euro. A USD rate of 1.12 means one euro equals 1.12 dollars at that reference rate.
+The snapshot contains 7,036 ECB observations from 2 January 2020 to 11 November 2026 for USD, GBP, JPY and CHF. Rates are foreign currency units per euro. A USD rate of 1.12 means one euro equals 1.12 dollars at that reference rate.
 
-The download URL, retrieval time and file checksum are in `data/ecb_reference_rates.source.json`. This is a historical snapshot, not a continuously updating live feed. No prices or anomalies were invented for these results.
+The download URL, retrieval time and file checksum are in `data/ecb_reference_rates.source.json`. This is a historical snapshot, not a continuously updating live feed.
 
 Each currency has 732 test observations.
 
@@ -52,7 +52,7 @@ uvicorn eurodata_pipeline.api:app --reload
 
 Open http://127.0.0.1:8000/docs to try the API. The database and anomaly snapshot are separate. Ingestion does not replace the snapshot or regenerate the chart.
 
-For another real snapshot, save a CSV with the same columns as `data/ecb_reference_rates.csv`, keep its source URL and retrieval date, then run:
+For another ECB snapshot, save a CSV with the same columns as `data/ecb_reference_rates.csv`, keep its source URL and retrieval date, then run:
 
 ```powershell
 python -m eurodata_pipeline.anomalies --input path/to/rates.csv --output results/new_run
@@ -73,7 +73,7 @@ pytest -q
 ruff check src tests
 ```
 
-The anomaly tests use real ECB observations. They check that later dates cannot change earlier features, scores or thresholds, and that exported rates match the source. Existing database and API tests use small fixtures to check storage behaviour. Those fixtures are not used for ML results.
+The anomaly tests use the included ECB observations. They check that later dates cannot change earlier features, scores or thresholds, and that exported rates match the source. Existing database and API tests use small fixtures to check storage behaviour. Those fixtures are not used for ML results.
 
 GitHub Actions runs tests and lint checks on pushes and pull requests.
 
