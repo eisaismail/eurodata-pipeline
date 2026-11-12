@@ -4,6 +4,12 @@ This project downloads exchange rates from the European Central Bank, stores the
 
 If the euro usually moves a little against the dollar but suddenly moves much more, the chart can mark that day for a closer look. A flag does not mean the rate is wrong.
 
+## API interface
+
+The interactive API documentation runs locally at `/docs` and lets you inspect and try the available endpoints.
+
+![EuroData API documentation interface](docs/images/api-interface.png)
+
 ## Anomaly detection
 
 Isolation Forest learns patterns in past exchange rate changes. It uses the daily percentage change, that change compared with the previous 60 observations, and recent volatility compared with the previous 60 observations. A simpler statistical rule provides a comparison.
