@@ -20,7 +20,12 @@ def features(frame):
     required = {"currency", "observation_date", "rate", "base_currency"}
     if not required.issubset(frame.columns):
         raise ValueError("Missing exchange-rate columns")
+    if frame.empty:
+        raise ValueError("At least one exchange-rate observation is required")
+    if frame["currency"].isna().any() or frame["currency"].astype(str).str.strip().eq("").any():
+        raise ValueError("Currency values must be present")
     frame = frame.copy()
+    frame["currency"] = frame["currency"].astype(str).str.upper()
     frame["observation_date"] = pd.to_datetime(frame.observation_date, errors="raise")
     if (frame.rate <= 0).any() or not np.isfinite(frame.rate).all():
         raise ValueError("Rates must be positive and finite")
